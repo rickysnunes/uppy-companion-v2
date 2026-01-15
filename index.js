@@ -11,15 +11,20 @@ app.use(
         secret: process.env.GOOGLE_CLIENT_SECRET
       }
     },
+
     server: {
       host: process.env.HOST,
       protocol: 'https'
     },
+
+    uploadUrls: ['*'], // ← TEMPORÁRIO, mas OK agora
+
     filePath: '/tmp',
     secret: process.env.COMPANION_SECRET
   })
 )
 
-app.listen(process.env.PORT || 3020, () => {
-  console.log('Uppy Companion running')
+const port = process.env.PORT || 3020
+app.listen(port, () => {
+  console.log(`Uppy Companion running on port ${port}`)
 })
