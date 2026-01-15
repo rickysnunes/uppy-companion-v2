@@ -15,7 +15,7 @@ app.use(
       host: process.env.HOST,
       protocol: 'https'
     },
-    filePath: './uploads',
+    filePath: '/tmp',
     secret: process.env.COMPANION_SECRET
   })
 )
