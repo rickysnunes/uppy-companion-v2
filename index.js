@@ -3,6 +3,7 @@ import { app as companionApp } from '@uppy/companion'
 
 const app = express()
 
+// Configura o Companion
 app.use(
   companionApp({
     providerOptions: {
@@ -11,16 +12,13 @@ app.use(
         secret: process.env.GOOGLE_CLIENT_SECRET
       }
     },
-
     server: {
-      host: process.env.HOST,
+      host: process.env.HOST || 'localhost:3020',
       protocol: 'https'
     },
-
-    uploadUrls: ['*'], // ok para agora
-
-    filePath: '/tmp',
-    secret: process.env.COMPANION_SECRET
+    uploadUrls: ['*'], // ok para testar
+    filePath: '/tmp', // Railway não permite escrever em ./uploads
+    secret: process.env.COMPANION_SECRET || 'uma-senha-secreta'
   })
 )
 
