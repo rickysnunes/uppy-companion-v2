@@ -1,10 +1,10 @@
 import express from 'express'
-import companion from '@uppy/companion'
+import { app as companionApp } from '@uppy/companion'
 
 const app = express()
 
 app.use(
-  companion.app({
+  companionApp({
     providerOptions: {
       drive: {
         key: process.env.GOOGLE_CLIENT_ID,
@@ -17,7 +17,7 @@ app.use(
       protocol: 'https'
     },
 
-    uploadUrls: ['*'], // ← TEMPORÁRIO, mas OK agora
+    uploadUrls: ['*'], // ok para agora
 
     filePath: '/tmp',
     secret: process.env.COMPANION_SECRET
