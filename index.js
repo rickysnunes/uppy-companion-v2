@@ -6,7 +6,7 @@ const app = express()
 app.use(
   companion.app({
     providerOptions: {
-      google: {
+      drive: {
         key: process.env.GOOGLE_CLIENT_ID,
         secret: process.env.GOOGLE_CLIENT_SECRET
       }
