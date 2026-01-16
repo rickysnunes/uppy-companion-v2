@@ -49,6 +49,7 @@ const companionOptions = {
     protocol: 'https'
   },
   uploadUrls: [
+    'https://api2.transloadit.com',
     /^https:\/\/.*\.transloadit\.com$/ 
   ],
 
