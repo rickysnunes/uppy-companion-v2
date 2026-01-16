@@ -30,11 +30,15 @@ const companionOptions = {
       secret: process.env.ONEDRIVE_CLIENT_SECRET
     }
   },
+  // ADICIONA ESTE BLOCO AQUI:
+  transloadit: {
+    key: process.env.COMPANION_TRANSLOADIT_KEY,
+    secret: process.env.COMPANION_TRANSLOADIT_SECRET,
+  },
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https'
   },
-  // ESTA LINHA É A QUE FALTA:
   uploadUrls: [
     'https://api2.transloadit.com',
     /^https:\/\/.*\.transloadit\.com$/ 
