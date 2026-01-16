@@ -36,11 +36,11 @@ const companionOptions = {
   transloadit: {
     key: process.env.TRANSLOADIT_KEY || process.env.COMPANION_TRANSLOADIT_KEY,
     secret: process.env.TRANSLOADIT_SECRET || process.env.COMPANION_TRANSLOADIT_SECRET,
+    // Força o envio direto para a Transloadit sem usar protocolos intermédios lentos
     use_stream: true, 
     always_run: true 
   },
-  // IMPORTANTE: Bloquear o Tus evita que o upload fique "preso" a tentar resumir
-  // e força o envio direto via POST para a Transloadit
+  // Desativar o Tus é vital no Railway para evitar a queda de velocidade
   tus: {
     enabled: false
   },
@@ -52,15 +52,17 @@ const companionOptions = {
     /^https:\/\/.*\.transloadit\.com$/ 
   ],
 
-  // --- MELHORIAS AQUI ---
-  streamingUpload: true, 
-  sendSelfHosted: true,  // Permite o "Pass-through" direto da nuvem para a Transloadit
+  // --- CONFIGURAÇÕES DE PERFORMANCE (ANTI-QUEDA DE VELOCIDADE) ---
+  streamingUpload: true, // Não guarda no disco, usa a RAM para passar o ficheiro
+  sendSelfHosted: true,  // Autoriza o envio direto do Railway para a Transloadit
   filePath: '/tmp',
-  // Aumenta o timeout para evitar que o Railway corte a ligação em ficheiros maiores
+  chunkSize: 10485760,   // 10MB por pedaço (ajuda a manter o fluxo constante)
+  
+  // Impede que o servidor interrompa a ligação por inatividade
   serverRuntimeConfig: {
     bodyLimit: '100mb' 
   },
-  // ----------------------
+  // -------------------------------------------------------------
 
   secret: process.env.COMPANION_SECRET || '600Dadosnaminhamao',
   debug: true
