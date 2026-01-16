@@ -41,6 +41,8 @@ const companionOptions = {
   },
   uploadUrls: [
     'https://api2.transloadit.com',
+    'https://api2-eu-west-1.transloadit.com',
+    'https://api2-us-east-1.transloadit.com',
     /^https:\/\/.*\.transloadit\.com$/ 
   ],
   filePath: '/tmp',
