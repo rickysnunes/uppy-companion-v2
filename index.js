@@ -19,9 +19,8 @@ app.use(session({
 }))
 
 // 2. Opções do Companion
-
-// Adiciona este log logo acima das companionOptions para debug
-console.log('Chave Transloadit carregada:', process.env.COMPANION_TRANSLOADIT_KEY ? 'Sim' : 'Não');
+// Log de debug unificado
+console.log('Chave Transloadit carregada:', (process.env.TRANSLOADIT_KEY || process.env.COMPANION_TRANSLOADIT_KEY) ? 'Sim' : 'Não');
 
 const companionOptions = {
   providerOptions: {
@@ -35,32 +34,41 @@ const companionOptions = {
     }
   },
   transloadit: {
-    key: process.env.TRANSLOADIT_KEY,
-    secret: process.env.TRANSLOADIT_SECRET,
-    // Força o protocolo de upload direto em vez de Tus
+    key: process.env.TRANSLOADIT_KEY || process.env.COMPANION_TRANSLOADIT_KEY,
+    secret: process.env.TRANSLOADIT_SECRET || process.env.COMPANION_TRANSLOADIT_SECRET,
     use_stream: true, 
     always_run: true 
+  },
+  // IMPORTANTE: Bloquear o Tus evita que o upload fique "preso" a tentar resumir
+  // e força o envio direto via POST para a Transloadit
+  tus: {
+    enabled: false
   },
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https'
   },
-  // IMPORTANTE: Permitir qualquer subdomínio da Transloadit
   uploadUrls: [
     /^https:\/\/.*\.transloadit\.com$/ 
   ],
-  streamingUpload: true, // Ajuda a não estourar a memória do Railway
+
+  // --- MELHORIAS AQUI ---
+  streamingUpload: true, 
+  sendSelfHosted: true,  // Permite o "Pass-through" direto da nuvem para a Transloadit
   filePath: '/tmp',
+  // Aumenta o timeout para evitar que o Railway corte a ligação em ficheiros maiores
+  serverRuntimeConfig: {
+    bodyLimit: '100mb' 
+  },
+  // ----------------------
+
   secret: process.env.COMPANION_SECRET || '600Dadosnaminhamao',
   debug: true
 }
 
-// 3. Inicialização Corrigida para a Versão 4.x
-// Na v4, usamos diretamente companion.app(options)
 const { app: companionApp } = companion.app(companionOptions)
 app.use(companionApp)
 
-// Rota de Health Check
 app.get('/', (req, res) => {
   res.send('Companion Online!')
 })
