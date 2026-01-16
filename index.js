@@ -56,7 +56,8 @@ const companionOptions = {
 
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
-    protocol: 'https'
+    protocol: 'https',
+    corsOrigins: ['https://teu-dominio-do-bubble.bubbleapps.io']
   },
   
   filePath: '/tmp',
