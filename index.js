@@ -34,7 +34,6 @@ const companionOptions = {
       secret: process.env.ONEDRIVE_CLIENT_SECRET
     }
   },
-  // ADICIONA ESTE BLOCO AQUI:
   transloadit: {
     key: process.env.COMPANION_TRANSLOADIT_KEY,
     secret: process.env.COMPANION_TRANSLOADIT_SECRET,
@@ -43,12 +42,11 @@ const companionOptions = {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https'
   },
+  // IMPORTANTE: Permitir qualquer subdomínio da Transloadit
   uploadUrls: [
-    'https://api2.transloadit.com',
-    'https://api2-eu-west-1.transloadit.com',
-    'https://api2-us-east-1.transloadit.com',
     /^https:\/\/.*\.transloadit\.com$/ 
   ],
+  streamingUpload: true, // Ajuda a não estourar a memória do Railway
   filePath: '/tmp',
   secret: process.env.COMPANION_SECRET || '600Dadosnaminhamao',
   debug: true
