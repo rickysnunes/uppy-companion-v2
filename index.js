@@ -32,10 +32,11 @@ const companionOptions = {
       secret: process.env.ONEDRIVE_CLIENT_SECRET
     }
   },
-  server: {
-    host: process.env.RAILWAY_STATIC_URL || 'localhost:3020',
-    protocol: 'https'
-  },
+    server: {
+        // Usa a tua variável HOST que definiste no Railway
+        host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app', 
+        protocol: 'https'
+      },
   filePath: '/tmp',
   secret: process.env.COMPANION_SECRET || 'chave-segura-123',
   debug: true
