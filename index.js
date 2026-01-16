@@ -37,7 +37,6 @@ const companionOptions = {
     key: process.env.TRANSLOADIT_KEY || process.env.COMPANION_TRANSLOADIT_KEY,
     secret: process.env.TRANSLOADIT_SECRET || process.env.COMPANION_TRANSLOADIT_SECRET,
     use_stream: true,
-    protocol: 'multipart',
     always_run: true 
   },
   tus: { enabled: false },
@@ -58,7 +57,9 @@ const companionOptions = {
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https',
-    corsOrigins: ['https://teu-dominio-do-bubble.bubbleapps.io']
+    protocol: 'multipart',
+    implicitPath: '/drive', // Ajuda no mapeamento
+    corsOrigins: ['https://softdash.bubbleapps.io']
   },
   
   filePath: '/tmp',
