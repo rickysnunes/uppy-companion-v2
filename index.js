@@ -41,21 +41,24 @@ const companionOptions = {
   },
   tus: { enabled: false },
 
-  // --- CONFIGURAÇÃO DE ALTA VELOCIDADE ---
-  streamingUpload: true,
-  sendSelfHosted: true,
-  // Aumentamos o chunkSize para 10MB para evitar o estrangulamento de pacotes
-  chunkSize: 10485760, 
-  // Permitir explicitamente o tráfego de saída para a Transloadit
+// ESTA É A PARTE CRUCIAL QUE ESTÁ A DAR O ERRO 400
   uploadUrls: [
+    'https://api2.transloadit.com',
+    'https://api2-eu-west-1.transloadit.com',
+    'https://api2-us-east-1.transloadit.com',
     /^https:\/\/.*\.transloadit\.com$/ 
   ],
-  // ---------------------------------------
+
+  // Adiciona esta linha para garantir que o Companion aceita o destino da Transloadit
+  allowLocalUrls: true, 
+  sendSelfHosted: true,
+  streamingUpload: true,
 
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https'
   },
+  
   filePath: '/tmp',
   secret: process.env.COMPANION_SECRET || '600Dadosnaminhamao',
   debug: true
