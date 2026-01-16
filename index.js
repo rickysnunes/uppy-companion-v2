@@ -35,8 +35,8 @@ const companionOptions = {
     }
   },
   transloadit: {
-    key: process.env.COMPANION_TRANSLOADIT_KEY,
-    secret: process.env.COMPANION_TRANSLOADIT_SECRET,
+    key: process.env.TRANSLOADIT_KEY,
+    secret: process.env.TRANSLOADIT_SECRET,
   },
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
