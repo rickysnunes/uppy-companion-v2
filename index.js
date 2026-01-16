@@ -37,6 +37,9 @@ const companionOptions = {
   transloadit: {
     key: process.env.TRANSLOADIT_KEY,
     secret: process.env.TRANSLOADIT_SECRET,
+    // Força o protocolo de upload direto em vez de Tus
+    use_stream: true, 
+    always_run: true 
   },
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
@@ -51,9 +54,6 @@ const companionOptions = {
   secret: process.env.COMPANION_SECRET || '600Dadosnaminhamao',
   debug: true
 }
-// Adiciona esta linha fora do bloco providerOptions
-  streamingUpload: true, 
-  sendSelfHosted: true, // Força o envio mesmo que o destino seja externo
 
 // 3. Inicialização Corrigida para a Versão 4.x
 // Na v4, usamos diretamente companion.app(options)
