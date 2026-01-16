@@ -36,7 +36,8 @@ const companionOptions = {
   transloadit: {
     key: process.env.TRANSLOADIT_KEY || process.env.COMPANION_TRANSLOADIT_KEY,
     secret: process.env.TRANSLOADIT_SECRET || process.env.COMPANION_TRANSLOADIT_SECRET,
-    use_stream: true, 
+    use_stream: true,
+    protocol: 'multipart',
     always_run: true 
   },
   tus: { enabled: false },
