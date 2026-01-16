@@ -57,8 +57,6 @@ const companionOptions = {
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https',
-    protocol: 'multipart',
-    implicitPath: '/drive', // Ajuda no mapeamento
     corsOrigins: ['https://softdash.bubbleapps.io']
   },
   
