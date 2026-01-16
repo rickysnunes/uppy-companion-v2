@@ -19,6 +19,10 @@ app.use(session({
 }))
 
 // 2. Opções do Companion
+
+// Adiciona este log logo acima das companionOptions para debug
+console.log('Chave Transloadit carregada:', process.env.COMPANION_TRANSLOADIT_KEY ? 'Sim' : 'Não');
+
 const companionOptions = {
   providerOptions: {
     drive: {
