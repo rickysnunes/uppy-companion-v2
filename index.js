@@ -2,23 +2,25 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import session from 'express-session'
-import { companion } from '@uppy/companion' // Mudança aqui na v4
+import pkg from '@uppy/companion' // Importa o pacote inteiro como padrão
+
+const { companion } = pkg // Extrai a funcionalidade daqui
 
 const app = express()
 
+// 1. Middlewares de segurança e sessão
 app.use(cors({
   origin: true, 
   credentials: true
 }))
-
 app.use(bodyParser.json())
-
 app.use(session({
-  secret: process.env.COMPANION_SECRET || 'uma-chave-qualquer-123',
+  secret: process.env.COMPANION_SECRET || 'chave-segura-123',
   resave: true,
   saveUninitialized: true
 }))
 
+// 2. Opções do Companion
 const companionOptions = {
   providerOptions: {
     drive: {
@@ -31,23 +33,24 @@ const companionOptions = {
     }
   },
   server: {
-    host: process.env.RAILWAY_STATIC_URL, // O Railway preenche isto sozinho
+    host: process.env.RAILWAY_STATIC_URL || 'localhost:3020',
     protocol: 'https'
   },
   filePath: '/tmp',
-  secret: process.env.COMPANION_SECRET || 'uma-chave-qualquer-123',
+  secret: process.env.COMPANION_SECRET || 'chave-segura-123',
   debug: true
 }
 
-// Inicializa o companion
+// 3. Inicialização correta para v4
 const { app: companionApp } = companion.instance(companionOptions)
 app.use(companionApp)
 
+// Rota de Health Check para o Railway saber que está tudo bem
 app.get('/', (req, res) => {
-  res.send('Companion Online!')
+  res.send('Companion Online e Pronto!')
 })
 
 const port = process.env.PORT || 3020
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Servidor a correr na porta ${port}`)
+  console.log(`Uppy Companion running on port ${port}`)
 })
