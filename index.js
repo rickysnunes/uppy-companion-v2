@@ -24,13 +24,21 @@ const companionOptions = {
     drive: {
       key: process.env.GOOGLE_CLIENT_ID,
       secret: process.env.GOOGLE_CLIENT_SECRET
+    },
+    onedrive: {
+      key: process.env.ONEDRIVE_CLIENT_ID,
+      secret: process.env.ONEDRIVE_CLIENT_SECRET
     }
-    // Podes adicionar onedrive aqui depois
   },
   server: {
     host: process.env.HOST || 'uppy-companion-v2-production.up.railway.app',
     protocol: 'https'
   },
+  // ESTA LINHA É A QUE FALTA:
+  uploadUrls: [
+    'https://api2.transloadit.com',
+    /^https:\/\/.*\.transloadit\.com$/ 
+  ],
   filePath: '/tmp',
   secret: process.env.COMPANION_SECRET || '600Dadosnaminhamao',
   debug: true
